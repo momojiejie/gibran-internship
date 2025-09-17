@@ -45,7 +45,7 @@ const HotCollections = () => {
             <Slider {...settings} >
               {data.map((elem, index) => (
                 <div
-                  className=" mx-3 slide-item"
+                  className="col-xs-12 slide-item"
                   key={index}
                 >
                   <div className="nft_coll">
