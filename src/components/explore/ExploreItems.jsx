@@ -74,7 +74,7 @@ const ExploreItems = () => {
                   </div>
                 </div>
               </div>
-              <Link to="/item-details">
+              <Link to={`/item-details/${elem.nftId}`}>
                 <img
                   src={elem.nftImage}
                   className="lazy nft__item_preview"
@@ -83,7 +83,7 @@ const ExploreItems = () => {
               </Link>
             </div>
             <div className="nft__item_info">
-              <Link to="/item-details">
+              <Link to={`/item-details/${elem.nftId}`}>
                 <h4>{elem.nftName}</h4>
               </Link>
               <div className="nft__item_price">{elem.price} ETH</div>
