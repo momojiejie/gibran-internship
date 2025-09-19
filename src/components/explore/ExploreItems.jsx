@@ -5,10 +5,13 @@ import nftImage from "../../images/nftImage.jpg";
 import Countdown from "../home/Countdown";
 import axios from "axios";
 import { useEffect } from "react";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const ExploreItems = () => {
   const [data, setData] = React.useState([]);
   const [visibleCount, setVisibleCount] = React.useState(8);
+  const [loading, setLoading] = React.useState(true);
 
   async function getData() {
     const { data } = await axios.get(
@@ -19,6 +22,7 @@ const ExploreItems = () => {
 
   useEffect(() => {
     getData();
+    setLoading(false);
   }, []);
 
   const handleLoadMore = (e) => {
@@ -36,6 +40,7 @@ const ExploreItems = () => {
           <option value="likes_high_to_low">Most liked</option>
         </select>
       </div>
+
       {data.slice(0, visibleCount).map((elem, index) => (
         <div
           key={index}
@@ -49,7 +54,7 @@ const ExploreItems = () => {
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
               >
-                <img className="lazy" src={elem.authorImage} alt="" />
+                <img className="lazy" src={elem.authorImage || <Skeleton count={1} />} alt="" />
                 <i className="fa fa-check"></i>
               </Link>
             </div>
@@ -97,7 +102,12 @@ const ExploreItems = () => {
       ))}
       {visibleCount < data.length && (
         <div className="col-md-12 text-center">
-          <a href="#" id="loadmore" className="btn-main lead" onClick={handleLoadMore}>
+          <a
+            href="#"
+            id="loadmore"
+            className="btn-main lead"
+            onClick={handleLoadMore}
+          >
             Load more
           </a>
         </div>
