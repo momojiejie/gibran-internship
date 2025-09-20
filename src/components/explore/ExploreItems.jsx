@@ -12,6 +12,7 @@ const ExploreItems = () => {
   const [data, setData] = React.useState([]);
   const [visibleCount, setVisibleCount] = React.useState(8);
   const [loading, setLoading] = React.useState(true);
+  const [filter, setFilter] = React.useState("");
 
   
   
@@ -33,10 +34,24 @@ const ExploreItems = () => {
     setVisibleCount((prev) => Math.min(prev + 4, data.length));
   };
 
+  // Filtering logic
+  let filteredData = [...data];
+  if (filter === "price_low_to_high") {
+    filteredData.sort((a, b) => a.price - b.price);
+  } else if (filter === "price_high_to_low") {
+    filteredData.sort((a, b) => b.price - a.price);
+  } else if (filter === "likes_high_to_low") {
+    filteredData.sort((a, b) => b.likes - a.likes);
+  }
+
   return (
     <>
       <div>
-        <select id="filter-items" defaultValue="">
+        <select
+          id="filter-items"
+          value={filter}
+          onChange={e => setFilter(e.target.value)}
+        >
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
           <option value="price_high_to_low">Price, High to Low</option>
@@ -78,7 +93,7 @@ const ExploreItems = () => {
           </div>
         ))}
       {!loading &&
-        data.slice(0, visibleCount).map((elem, index) => (
+        filteredData.slice(0, visibleCount).map((elem, index) => (
           <div
             key={index}
             className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
