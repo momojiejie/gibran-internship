@@ -32,7 +32,7 @@ const HotCollections = () => {
     }
     getData();
   }, []);
-  
+
   console.log(loading);
   return (
     <section id="section-collections" className="no-bottom">
@@ -44,22 +44,22 @@ const HotCollections = () => {
               <div className="small-border bg-color-2"></div>
               <div className="slider-container mr-10">
                 <div className="row">
-                  <OwlCarousel
-                    className="owl-theme"
-                    items={4}
-                    loop
-                    margin={10}
-                    nav
-                    dots
-                    responsive={{
-                      0: { items: 1 }, // 1 item for very small screens
-                      600: { items: 2 }, // 2 items for small screens
-                      900: { items: 3 }, // 3 items for medium screens
-                      1200: { items: 4 }, // 4 items for large screens
-                    }}
-                  >
-                    {loading &&
-                      new Array(4).fill(0).map((_, index) => (
+                  {loading && (
+                    <OwlCarousel
+                      className="owl-theme"
+                      items={4}
+                      loop
+                      margin={10}
+                      nav
+                      dots
+                      responsive={{
+                        0: { items: 1 }, // 1 item for very small screens
+                        600: { items: 2 }, // 2 items for small screens
+                        900: { items: 3 }, // 3 items for medium screens
+                        1200: { items: 4 }, // 4 items for large screens
+                      }}
+                    >
+                      {new Array(4).fill(0).map((_, index) => (
                         <div
                           className="mx-auto item"
                           key={index}
@@ -88,8 +88,24 @@ const HotCollections = () => {
                           </div>
                         </div>
                       ))}
-                    {!loading &&
-                      data.map((elem, index) => (
+                    </OwlCarousel>
+                  )}
+                  {!loading && (
+                    <OwlCarousel
+                      className="owl-theme"
+                      items={4}
+                      loop
+                      margin={10}
+                      nav
+                      dots
+                      responsive={{
+                        0: { items: 1 }, // 1 item for very small screens
+                        600: { items: 2 }, // 2 items for small screens
+                        900: { items: 3 }, // 3 items for medium screens
+                        1200: { items: 4 }, // 4 items for large screens
+                      }}
+                    >
+                      {data.map((elem, index) => (
                         <div
                           className="mx-auto item"
                           key={index}
@@ -124,7 +140,8 @@ const HotCollections = () => {
                           </div>
                         </div>
                       ))}
-                  </OwlCarousel>
+                    </OwlCarousel>
+                  )}
                 </div>
               </div>
             </div>

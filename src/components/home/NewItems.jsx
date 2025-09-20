@@ -12,17 +12,17 @@ const NewItems = () => {
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
+    setLoading(true);
     async function getData() {
-    const { data } = await axios.get(
-      "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
-    );
-    setData(data);
-    setLoading(false);
-  }
+      const { data } = await axios.get(
+        "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
+      );
+      setData(data);
+      setLoading(false);
+    }
     getData();
     console.log(data);
   }, []);
-
 
   return (
     <section id="section-items" className="no-bottom">
@@ -36,12 +36,49 @@ const NewItems = () => {
           </div>
           <div className="slider-container mr-10">
             <div className="row">
-              {loading && (<Skeleton />)}
-              <OwlCarousel
-                className="owl-theme"
-                loop
-                margin={10}
-                nav
+              {loading && (
+                <OwlCarousel
+                  className="owl-theme"
+                  loop
+                  margin={10}
+                  nav
+                  dots
+                  items={4}
+                  responsive={{
+                    0: { items: 1 }, // 1 item for very small screens
+                    600: { items: 2 }, // 2 items for small screens
+                    900: { items: 3 }, // 3 items for medium screens
+                    1200: { items: 4 },
+                  }}
+                >
+                  {new Array(4).fill(0).map((_, index) => (
+                    <div className="item" key={index}>
+                      <div className="nft__item">
+                        <div className="author_list_pp">
+                          <Skeleton width={50} height={50} borderRadius={100} />
+                        </div>
+                        <div className="de_countdown">
+                          <Skeleton width={100} height={20} borderRadius={5} />
+                        </div>
+                        <div className="nft__item_wrap">
+                          <div className="nft__item_extra">
+                          </div>
+                          <Skeleton width={"100%"} height={200} borderRadius={10} />
+                        </div>
+                        <div className="nft__item_info">
+                          <Skeleton width={"60%"} height={20} borderRadius={5} style={{ marginBottom: '10px' }} />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </OwlCarousel>
+              )}
+              {!loading && (
+                <OwlCarousel
+                  className="owl-theme"
+                  loop
+                  margin={10}
+                  nav
                 dots
                 items={4}
                 responsive={{
@@ -107,7 +144,7 @@ const NewItems = () => {
                     </div>
                   </div>
                 ))}
-              </OwlCarousel>
+              </OwlCarousel>)}
             </div>
           </div>
         </div>
